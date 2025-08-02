@@ -1,0 +1,17 @@
+# Module declaration
+module(
+    name = "pyneo-helper",
+    version = "0.1.0",
+)
+
+# Python dependencies
+bazel_dep(name = "rules_python", version = "1.5.1")
+bazel_dep(name = "bazel_skylib", version = "1.8.1")
+
+# Pip dependency management
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+pip.parse(
+    hub_name = "pypi",
+    requirements_lock = "//:requirements_lock.txt",
+)
+use_repo(pip, "pypi")
